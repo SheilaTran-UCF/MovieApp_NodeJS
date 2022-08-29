@@ -38,6 +38,12 @@ const deleteWork = async (req, res, next) => {
 
 const getWorks = async (req, res, next) => {
 	try {
+		const works = await Work.find()
+		await res.status(StatusCodes.OK).json({
+			status: StatusCodes.OK,
+			msg: 'Success!',
+			data: works,
+		})
 	} catch (error) {
 		next(error)
 	}
