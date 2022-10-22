@@ -21,6 +21,13 @@ const createWork = async (req, res, next) => {
 }
 
 const updateWork = async (req, res, next) => {
+	const { title } = req.body
+
+	const data = await Work.findOneAndUpdate({ title: title })
+	await res.status(StatusCodes.OK).json({
+		status: StatusCodes.OK,
+		msg: 'Success!',
+	})
 	try {
 	} catch (error) {
 		next(error)
