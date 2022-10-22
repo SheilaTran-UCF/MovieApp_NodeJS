@@ -35,8 +35,13 @@ const updateWork = async (req, res, next) => {
 }
 
 const deleteWork = async (req, res, next) => {
-	const { user: userGoogle } = req
+	const { title } = req.body
 
+	const data = await Work.findOneAndDelete({ title: title })
+	await res.status(StatusCodes.OK).json({
+		status: StatusCodes.OK,
+		msg: 'Success!',
+	})
 	try {
 	} catch (error) {
 		next(error)
