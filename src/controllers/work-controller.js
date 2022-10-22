@@ -21,9 +21,9 @@ const createWork = async (req, res, next) => {
 }
 
 const updateWork = async (req, res, next) => {
-	const { title } = req.body
+	const { title, describe } = req.body
 
-	const data = await Work.findOneAndUpdate({ title: title })
+	const data = await Work.findOneAndUpdate({ title: title, describe: describe })
 	await res.status(StatusCodes.OK).json({
 		status: StatusCodes.OK,
 		msg: 'Success!',
