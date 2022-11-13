@@ -23,12 +23,13 @@ const createWork = async (req, res, next) => {
 const updateWork = async (req, res, next) => {
 	const { id, title, describe } = req.body
 
-	const data = await Work.findOneAndUpdate({ _id: id }, { title: title, describe: describe })
+	await Work.updateOne({ _id: id }, { title: title, describe: describe })
 
-	// console.log({ data })
+	const data = await Work.findOne({ _id: id })
 	await res.status(StatusCodes.OK).json({
 		status: StatusCodes.OK,
 		msg: 'Success!',
+		data: data,
 	})
 	try {
 	} catch (error) {
@@ -54,10 +55,13 @@ const deleteWork = async (req, res, next) => {
 const getWorks = async (req, res, next) => {
 	try {
 		const works = await Work.find()
+		const sortedWorks = works.sort(function (a, b) {
+			return new Date(b.updatedAt) - new Date(a.updatedAt)
+		})
 		await res.status(StatusCodes.OK).json({
 			status: StatusCodes.OK,
 			msg: 'Success!',
-			data: works,
+			data: sortedWorks,
 		})
 	} catch (error) {
 		next(error)
