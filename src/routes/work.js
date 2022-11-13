@@ -4,7 +4,7 @@ import { createWork, deleteWork, getWorks, updateWork } from '../controllers/wor
 const router = express.Router()
 
 router.post('/create', createWork)
-router.delete('/delete', deleteWork)
+router.delete('/delete/:id', deleteWork)
 router.patch('/update', updateWork)
 router.get('/list', getWorks)
 
